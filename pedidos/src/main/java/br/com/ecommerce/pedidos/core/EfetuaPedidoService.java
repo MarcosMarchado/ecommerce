@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class EfetuaPedidoService {
-   /*TODO: Criar interceptador para pegar exceções (NullPointer Exception) quando o objeto não é encontrado via JPA*/
+
    private final Logger logger;
    private final ClienteRepository clienteRepository;
    private final EnderecoRepository enderecoRepository;

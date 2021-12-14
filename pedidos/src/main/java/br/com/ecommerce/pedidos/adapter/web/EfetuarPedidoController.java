@@ -2,6 +2,7 @@ package br.com.ecommerce.pedidos.adapter.web;
 
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.EfetuaPedidoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ public class EfetuarPedidoController {
 
    private final EfetuaPedidoService efetuaPedidoService;
 
+   @Autowired
    public EfetuarPedidoController(EfetuaPedidoService efetuaPedidoService) {
       this.efetuaPedidoService = efetuaPedidoService;
    }
