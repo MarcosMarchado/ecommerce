@@ -2,7 +2,7 @@ package br.com.ecommerce.pedidos.adapter.web.dto.saida;
 
 import br.com.ecommerce.pedidos.adapter.model.Produto;
 import org.springframework.data.domain.Page;
-
+//TODO: Colocar na resposta o id e nome da Categoria de cada Produto
 public class ProdutoResponse {
    private Long id;
 

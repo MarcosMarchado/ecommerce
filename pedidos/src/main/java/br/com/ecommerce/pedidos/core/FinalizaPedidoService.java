@@ -17,9 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+//TODO: Incluir forma de pagamento no momento da finalização do Pedido
 @Service
-public class EfetuaPedidoService {
+public class FinalizaPedidoService {
 
    private final Logger logger;
    private final ClienteRepository clienteRepository;
@@ -28,14 +28,14 @@ public class EfetuaPedidoService {
    private final PedidoRepository pedidoRepository;
 
    @Autowired
-   public EfetuaPedidoService(ClienteRepository clienteRepository, EnderecoRepository enderecoRepository,
-                              ProdutoRepository produtoRepository, PedidoRepository pedidoRepository) {
+   public FinalizaPedidoService(ClienteRepository clienteRepository, EnderecoRepository enderecoRepository,
+                                ProdutoRepository produtoRepository, PedidoRepository pedidoRepository) {
 
       this.clienteRepository = clienteRepository;
       this.enderecoRepository = enderecoRepository;
       this.produtoRepository = produtoRepository;
       this.pedidoRepository = pedidoRepository;
-      this.logger = LoggerFactory.getLogger(EfetuaPedidoService.class);
+      this.logger = LoggerFactory.getLogger(FinalizaPedidoService.class);
    }
 
    public void efetuaPedido(PedidoRequest request){
