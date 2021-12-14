@@ -10,11 +10,6 @@ public class ProdutoSpecification {
           -> criteriaBuilder.like(root.get("nome"), "%" + nome + "%");
    }
 
-   public static Specification<Produto> precoMaiorQue(Double preco) {
-      return (root, criteriaQuery, criteriaBuilder)
-          -> criteriaBuilder.greaterThanOrEqualTo(root.get("preco"), preco);
-   }
-
    public static Specification<Produto> precoMenorQue(Double preco) {
       return (root, criteriaQuery, criteriaBuilder)
           -> criteriaBuilder.lessThanOrEqualTo(root.get("preco"), preco);

@@ -5,6 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long>, JpaSpecificationExecutor<Produto> {
-   //Page<Produto> findByNomeContaining(String nome, Pageable pageable);
-   //Produto findByCategoriasIdAndPrecoGreaterThanEqual(Long idCategoria, Double preco);
 }

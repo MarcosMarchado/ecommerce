@@ -4,6 +4,7 @@ import br.com.ecommerce.pedidos.adapter.data.ProdutoRepository;
 import br.com.ecommerce.pedidos.adapter.data.ProdutoSpecification;
 import br.com.ecommerce.pedidos.adapter.web.dto.saida.ProdutoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -32,21 +33,23 @@ public class FiltraProdutosController {
    }
 
    @GetMapping
-   public ResponseEntity<?> produtoPorFiltro(@RequestParam(required = false) Double preco,
-                                             @RequestParam(required = false) Long idCategoria,
-                                             @RequestParam(required = false) String nome,
-                                             Pageable pageable) {
+   public ResponseEntity<Page<ProdutoResponse>> produtoPorFiltro(@RequestParam(required = false) Long idCategoria,
+                                                                 @RequestParam(required = false) Double menorPreco,
+                                                                 @RequestParam(required = false) String nome,
+                                                                 Pageable pageable) {
 
-      if (Objects.isNull(nome) && Objects.isNull(idCategoria) && Objects.isNull(preco)) {
+      if (Objects.isNull(nome) && Objects.isNull(idCategoria) && Objects.isNull(menorPreco)) {
          var produtos = produtoRepository.findAll(pageable);
          return ResponseEntity.ok(ProdutoResponse.paraResponse(produtos));
       }
 
-      return ResponseEntity.ok(produtoRepository.findAll(Specification.where(
-          ProdutoSpecification.nome(nome)
-              .or(ProdutoSpecification.precoMaiorQue(preco)
-                  .and(ProdutoSpecification.produtosPorCategoria(idCategoria)))
-              .or(ProdutoSpecification.precoMenorQue(preco)
-                  .and(ProdutoSpecification.produtosPorCategoria(idCategoria)))), pageable));
+      var produtosFiltrados = produtoRepository.findAll(Specification.where(
+          ProdutoSpecification.precoMenorQue(menorPreco).and(ProdutoSpecification.produtosPorCategoria(idCategoria))
+              .or(ProdutoSpecification.produtosPorCategoria(idCategoria).and(ProdutoSpecification.nome(nome)))
+              .or(ProdutoSpecification.produtosPorCategoria(idCategoria))
+              .or(ProdutoSpecification.nome(nome))
+      ), pageable);
+
+      return ResponseEntity.ok(ProdutoResponse.paraResponse(produtosFiltrados));
    }
 }
