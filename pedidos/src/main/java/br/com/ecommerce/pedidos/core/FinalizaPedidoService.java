@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class FinalizaPedidoService {
 
-   private final Logger logger;
+   private final Logger logger = LoggerFactory.getLogger(FinalizaPedidoService.class);
    private final ClienteRepository clienteRepository;
    private final EnderecoRepository enderecoRepository;
    private final ProdutoRepository produtoRepository;
@@ -35,7 +35,6 @@ public class FinalizaPedidoService {
       this.enderecoRepository = enderecoRepository;
       this.produtoRepository = produtoRepository;
       this.pedidoRepository = pedidoRepository;
-      this.logger = LoggerFactory.getLogger(FinalizaPedidoService.class);
    }
 
    public void efetuaPedido(PedidoRequest request){
