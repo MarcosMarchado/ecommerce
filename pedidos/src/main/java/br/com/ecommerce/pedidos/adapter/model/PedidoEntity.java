@@ -12,15 +12,11 @@ public class PedidoEntity {
    @Id
    @GeneratedValue(strategy= GenerationType.IDENTITY)
    private Long id;
-
    private LocalDateTime instante = LocalDateTime.now();
-
    @ManyToOne
    private ClienteEntity cliente;
-
    @OneToOne
    private EnderecoEntity enderecoDeEntrega;
-
    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
    private List<ItemPedidoEntity> itens = new ArrayList<>();
 

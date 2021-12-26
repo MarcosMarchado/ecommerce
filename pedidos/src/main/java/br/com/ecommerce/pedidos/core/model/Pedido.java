@@ -7,7 +7,7 @@ import java.util.List;
 public class Pedido {
 
    private Long id;
-   private LocalDateTime instante = LocalDateTime.now();
+   private LocalDateTime instante;
    private Cliente cliente;
    private Endereco enderecoDeEntrega;
    private List<ItemPedido> itens = new ArrayList<>();

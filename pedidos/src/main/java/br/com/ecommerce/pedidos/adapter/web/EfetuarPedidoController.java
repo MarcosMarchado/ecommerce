@@ -23,7 +23,7 @@ public class EfetuarPedidoController {
    @PostMapping
    public ResponseEntity<?> efetuarPedido(@RequestBody PedidoRequest request){
       finalizaPedidoServicePort.efetuaPedido(request);
-      return ResponseEntity.ok("sdad");
+      return ResponseEntity.ok(request);
    }
 
 }

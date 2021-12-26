@@ -1,15 +1,11 @@
 package br.com.ecommerce.pedidos.core.service;
 
 import br.com.ecommerce.pedidos.adapter.persistence.ClienteRepository;
-import br.com.ecommerce.pedidos.adapter.persistence.EnderecoRepository;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.ItemPedidoRequest;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.model.ItemPedido;
 import br.com.ecommerce.pedidos.core.model.Pedido;
-import br.com.ecommerce.pedidos.core.ports.ClienteRepositoryPort;
-import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
-import br.com.ecommerce.pedidos.core.ports.PedidoRepositoryPort;
-import br.com.ecommerce.pedidos.core.ports.ProdutoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +17,16 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
 
    private final Logger logger = LoggerFactory.getLogger(FinalizaPedidoServiceImpl.class);
    private final ClienteRepositoryPort clienteRepositoryPort;
-   private final EnderecoRepository enderecoRepository;
+   private final EnderecoRepositoryPort enderecoRepositoryPort;
    private final ProdutoRepositoryPort produtoRepositoryPort;
    private final PedidoRepositoryPort pedidoRepositoryPort;
 
    @Autowired
-   public FinalizaPedidoServiceImpl(ClienteRepository clienteRepositoryPort, EnderecoRepository enderecoRepository,
+   public FinalizaPedidoServiceImpl(ClienteRepository clienteRepositoryPort, EnderecoRepositoryPort enderecoRepositoryPort,
                                     ProdutoRepositoryPort produtoRepositoryPort, PedidoRepositoryPort pedidoRepositoryPort) {
 
       this.clienteRepositoryPort = clienteRepositoryPort;
-      this.enderecoRepository = enderecoRepository;
+      this.enderecoRepositoryPort = enderecoRepositoryPort;
       this.produtoRepositoryPort = produtoRepositoryPort;
       this.pedidoRepositoryPort = pedidoRepositoryPort;
    }
@@ -39,7 +35,7 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
    public void efetuaPedido(PedidoRequest request){
       logger.info("Executando busca no Banco de Dados");
       var cliente = clienteRepositoryPort.findById(request.getIdCliente());
-      var endereco = enderecoRepository.findById(request.getIdEnderecoEntrega());
+      var endereco = enderecoRepositoryPort.findById(request.getIdEnderecoEntrega());
       var itensPedidos = retornaListaDeItensPedidos(request.getItens());
 
       Pedido pedido = new Pedido(cliente, endereco, itensPedidos);

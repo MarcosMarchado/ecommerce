@@ -13,8 +13,8 @@ public class Cliente {
    private String cpf;
    private String senha;
    private String telefone;
-   private List<EnderecoEntity> enderecoEntities;
-   private List<PedidoEntity> pedidoEntities;
+   private List<EnderecoEntity> enderecos;
+   private List<PedidoEntity> pedidos;
 
    @Deprecated
    public Cliente() {
@@ -53,11 +53,10 @@ public class Cliente {
    }
 
    public List<EnderecoEntity> getEnderecos() {
-      return enderecoEntities;
+      return enderecos;
    }
 
    public List<PedidoEntity> getPedidos() {
-      return pedidoEntities;
+      return pedidos;
    }
-
 }

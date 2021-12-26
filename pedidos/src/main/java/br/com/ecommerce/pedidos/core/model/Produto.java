@@ -12,7 +12,7 @@ public class Produto {
    private Long id;
    private String nome;
    private Double preco;
-   private List<Categoria> categoria = new ArrayList<>();
+   private List<Categoria> categorias = new ArrayList<>();
 
    @Deprecated
    public Produto() {
@@ -36,6 +36,6 @@ public class Produto {
    }
 
    public List<Categoria> getCategorias() {
-      return categoria;
+      return categorias;
    }
 }
