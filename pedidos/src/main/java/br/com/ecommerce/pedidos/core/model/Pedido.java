@@ -1,26 +1,15 @@
-package br.com.ecommerce.pedidos.adapter.model;
+package br.com.ecommerce.pedidos.core.model;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-//TODO: Obter detalhes do Pedido - GET
-@Entity
+
 public class Pedido {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-
    private LocalDateTime instante = LocalDateTime.now();
-
-   @ManyToOne
    private Cliente cliente;
-
-   @OneToOne
    private Endereco enderecoDeEntrega;
-
-   @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
    private List<ItemPedido> itens = new ArrayList<>();
 
    @Deprecated
@@ -41,10 +30,6 @@ public class Pedido {
       return id;
    }
 
-   public List<ItemPedido> getItens() {
-      return itens;
-   }
-
    public LocalDateTime getInstante() {
       return instante;
    }
@@ -55,5 +40,9 @@ public class Pedido {
 
    public Endereco getEnderecoDeEntrega() {
       return enderecoDeEntrega;
+   }
+
+   public List<ItemPedido> getItens() {
+      return itens;
    }
 }

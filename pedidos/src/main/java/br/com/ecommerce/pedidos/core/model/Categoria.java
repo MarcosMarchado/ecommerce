@@ -1,22 +1,12 @@
-package br.com.ecommerce.pedidos.adapter.model;
+package br.com.ecommerce.pedidos.core.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 public class Categoria {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-
    private String nome;
-
-   //@JsonBackReference
-   @ManyToMany(mappedBy = "categorias")
    private List<Produto> produtos = new ArrayList<>();
 
    @Deprecated

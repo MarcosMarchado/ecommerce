@@ -1,31 +1,18 @@
-package br.com.ecommerce.pedidos.adapter.model;
+package br.com.ecommerce.pedidos.core.model;
 
+import br.com.ecommerce.pedidos.adapter.model.CategoriaEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 public class Produto {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-
    private String nome;
-
    private Double preco;
-
-   //@JsonManagedReference
-   @JsonIgnore
-   @ManyToMany
-   @JoinTable(
-       name = "categoria_produto",
-       joinColumns = @JoinColumn(name = "produto_id"),
-       inverseJoinColumns = @JoinColumn(name = "categoria_id")
-   )
-   private List<Categoria> categorias = new ArrayList<>();
+   private List<Categoria> categoria = new ArrayList<>();
 
    @Deprecated
    public Produto() {
@@ -49,6 +36,6 @@ public class Produto {
    }
 
    public List<Categoria> getCategorias() {
-      return categorias;
+      return categoria;
    }
 }

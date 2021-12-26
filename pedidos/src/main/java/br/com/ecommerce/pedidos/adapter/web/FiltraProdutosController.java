@@ -1,7 +1,7 @@
 package br.com.ecommerce.pedidos.adapter.web;
 
-import br.com.ecommerce.pedidos.adapter.data.ProdutoRepository;
-import br.com.ecommerce.pedidos.adapter.data.ProdutoSpecification;
+import br.com.ecommerce.pedidos.adapter.persistence.interfaceJpa.ProdutoJpaRepository;
+import br.com.ecommerce.pedidos.adapter.persistence.specification.ProdutoSpecification;
 import br.com.ecommerce.pedidos.adapter.web.dto.saida.ProdutoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,10 +18,10 @@ import java.util.Objects;
 @RequestMapping("/api/v1/ecommerce/produtos")
 public class FiltraProdutosController {
 
-   private ProdutoRepository produtoRepository;
+   private final ProdutoJpaRepository produtoRepository;
 
    @Autowired
-   public FiltraProdutosController(ProdutoRepository produtoRepository) {
+   public FiltraProdutosController(ProdutoJpaRepository produtoRepository) {
       this.produtoRepository = produtoRepository;
    }
 

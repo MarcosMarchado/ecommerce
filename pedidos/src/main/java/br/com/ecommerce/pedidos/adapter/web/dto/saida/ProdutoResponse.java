@@ -1,7 +1,7 @@
 package br.com.ecommerce.pedidos.adapter.web.dto.saida;
 
-import br.com.ecommerce.pedidos.adapter.model.Categoria;
-import br.com.ecommerce.pedidos.adapter.model.Produto;
+import br.com.ecommerce.pedidos.adapter.model.CategoriaEntity;
+import br.com.ecommerce.pedidos.adapter.model.ProdutoEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -16,17 +16,17 @@ public class ProdutoResponse {
 
    private List<CategoriaResponse> categorias;
 
-   public ProdutoResponse(Produto produto) {
-      this.id = produto.getId();
-      this.nome = produto.getNome();
-      this.preco = produto.getPreco();
+   public ProdutoResponse(ProdutoEntity produtoEntity) {
+      this.id = produtoEntity.getId();
+      this.nome = produtoEntity.getNome();
+      this.preco = produtoEntity.getPreco();
    }
 
-   public ProdutoResponse(Produto produto, List<Categoria> categorias) {
-      this.id = produto.getId();
-      this.nome = produto.getNome();
-      this.preco = produto.getPreco();
-      this.categorias = categorias.stream().map(CategoriaResponse::new).collect(Collectors.toList());
+   public ProdutoResponse(ProdutoEntity produtoEntity, List<CategoriaEntity> categoriaEntities) {
+      this.id = produtoEntity.getId();
+      this.nome = produtoEntity.getNome();
+      this.preco = produtoEntity.getPreco();
+      this.categorias = categoriaEntities.stream().map(CategoriaResponse::new).collect(Collectors.toList());
    }
 
    public Long getId() {
@@ -45,7 +45,7 @@ public class ProdutoResponse {
       return categorias;
    }
 
-   public static Page<ProdutoResponse> paraResponse (Page<Produto> produtos){
+   public static Page<ProdutoResponse> paraResponse (Page<ProdutoEntity> produtos){
       return produtos.map(produto -> {
          var categorias = produto.getCategorias();
          return new ProdutoResponse(produto, categorias);

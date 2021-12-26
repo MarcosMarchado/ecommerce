@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Cliente {
+@Table(name = "cliente")
+public class ClienteEntity {
 
    @Id
    @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -21,16 +22,16 @@ public class Cliente {
    private String telefone;
 
    @OneToMany
-   private List<Endereco> enderecos;
+   private List<EnderecoEntity> enderecos;
 
    @OneToMany(mappedBy = "cliente")
-   private List<Pedido> pedidos;
+   private List<PedidoEntity> pedidos;
 
    @Deprecated
-   public Cliente() {
+   public ClienteEntity() {
    }
 
-   public Cliente(String nome, String email, String cpf, String senha, String telefone) {
+   public ClienteEntity(String nome, String email, String cpf, String senha, String telefone) {
       this.nome = nome;
       this.email = email;
       this.cpf = cpf;
@@ -62,11 +63,11 @@ public class Cliente {
       return telefone;
    }
 
-   public List<Endereco> getEnderecos() {
+   public List<EnderecoEntity> getEnderecos() {
       return enderecos;
    }
 
-   public List<Pedido> getPedidos() {
+   public List<PedidoEntity> getPedidos() {
       return pedidos;
    }
 }

@@ -1,12 +1,9 @@
-package br.com.ecommerce.pedidos.adapter.model;
+package br.com.ecommerce.pedidos.core.model;
 
-import javax.persistence.*;
+import br.com.ecommerce.pedidos.adapter.model.ClienteEntity;
 
-@Entity
 public class Endereco {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String logradouro;
    private String numero;
@@ -27,7 +24,7 @@ public class Endereco {
                    String cep,
                    String cidade,
                    String estado,
-                   Cliente cliente) {
+                   ClienteEntity clienteEntity) {
 
       this.logradouro = logradouro;
       this.numero = numero;
