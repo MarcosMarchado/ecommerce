@@ -1,62 +1,20 @@
 package br.com.ecommerce.pedidos.core.model;
 
-import br.com.ecommerce.pedidos.adapter.model.EnderecoEntity;
-import br.com.ecommerce.pedidos.adapter.model.PedidoEntity;
+import lombok.*;
 
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
-
    private Long id;
    private String nome;
    private String email;
    private String cpf;
    private String senha;
    private String telefone;
-   private List<EnderecoEntity> enderecos;
-   private List<PedidoEntity> pedidos;
-
-   @Deprecated
-   public Cliente() {
-   }
-
-   public Cliente(String nome, String email, String cpf, String senha, String telefone) {
-      this.nome = nome;
-      this.email = email;
-      this.cpf = cpf;
-      this.senha = senha;
-      this.telefone = telefone;
-   }
-
-   public Long getId() {
-      return id;
-   }
-
-   public String getNome() {
-      return nome;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public String getCpf() {
-      return cpf;
-   }
-
-   public String getSenha() {
-      return senha;
-   }
-
-   public String getTelefone() {
-      return telefone;
-   }
-
-   public List<EnderecoEntity> getEnderecos() {
-      return enderecos;
-   }
-
-   public List<PedidoEntity> getPedidos() {
-      return pedidos;
-   }
+   private List<Endereco> enderecos;
+   private List<Pedido> pedidos;
 }

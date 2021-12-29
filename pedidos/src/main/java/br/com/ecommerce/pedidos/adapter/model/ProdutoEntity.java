@@ -1,21 +1,22 @@
 package br.com.ecommerce.pedidos.adapter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "produto")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity @Table(name = "produto")
 public class ProdutoEntity {
 
    @Id
    @GeneratedValue(strategy= GenerationType.IDENTITY)
    private Long id;
-
    private String nome;
-
    private Double preco;
 
    //@JsonManagedReference
@@ -28,28 +29,4 @@ public class ProdutoEntity {
    )
    private List<CategoriaEntity> categorias = new ArrayList<>();
 
-   @Deprecated
-   public ProdutoEntity() {
-   }
-
-   public ProdutoEntity(String nome, Double preco) {
-      this.nome = nome;
-      this.preco = preco;
-   }
-
-   public Long getId() {
-      return id;
-   }
-
-   public String getNome() {
-      return nome;
-   }
-
-   public Double getPreco() {
-      return preco;
-   }
-
-   public List<CategoriaEntity> getCategorias() {
-      return categorias;
-   }
 }

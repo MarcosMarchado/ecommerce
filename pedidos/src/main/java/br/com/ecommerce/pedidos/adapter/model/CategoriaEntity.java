@@ -1,11 +1,15 @@
 package br.com.ecommerce.pedidos.adapter.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "categoria")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity @Table(name = "categoria")
 public class CategoriaEntity {
 
    @Id
@@ -18,23 +22,4 @@ public class CategoriaEntity {
    @ManyToMany(mappedBy = "categorias")
    private List<ProdutoEntity> produtos = new ArrayList<>();
 
-   @Deprecated
-   public CategoriaEntity() {
-   }
-
-   public CategoriaEntity(String nome) {
-      this.nome = nome;
-   }
-
-   public List<ProdutoEntity> getProdutos() {
-      return produtos;
-   }
-
-   public Long getId() {
-      return id;
-   }
-
-   public String getNome() {
-      return nome;
-   }
 }

@@ -22,11 +22,11 @@ public class ProdutoResponse {
       this.preco = produtoEntity.getPreco();
    }
 
-   public ProdutoResponse(ProdutoEntity produtoEntity, List<CategoriaEntity> categoriaEntities) {
+   public ProdutoResponse(ProdutoEntity produtoEntity, List<CategoriaEntity> categoriaEntityEntities) {
       this.id = produtoEntity.getId();
       this.nome = produtoEntity.getNome();
       this.preco = produtoEntity.getPreco();
-      this.categorias = categoriaEntities.stream().map(CategoriaResponse::new).collect(Collectors.toList());
+      this.categorias = categoriaEntityEntities.stream().map(CategoriaResponse::new).collect(Collectors.toList());
    }
 
    public Long getId() {
