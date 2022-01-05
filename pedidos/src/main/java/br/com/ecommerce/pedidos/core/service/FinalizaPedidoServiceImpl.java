@@ -5,10 +5,12 @@ import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.model.ItemPedido;
 import br.com.ecommerce.pedidos.core.model.Pedido;
 import br.com.ecommerce.pedidos.core.ports.*;
+import br.com.ecommerce.pedidos.core.ports.persistence.ClienteRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.ProdutoRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;

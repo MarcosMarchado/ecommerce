@@ -2,7 +2,7 @@ package br.com.ecommerce.pedidos.adapter.persistence;
 
 import br.com.ecommerce.pedidos.adapter.persistence.interfaceJpa.ClienteJpaRepository;
 import br.com.ecommerce.pedidos.core.model.Cliente;
-import br.com.ecommerce.pedidos.core.ports.ClienteRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.ClienteRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

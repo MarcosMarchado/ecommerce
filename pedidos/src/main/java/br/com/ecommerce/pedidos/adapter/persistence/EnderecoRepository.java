@@ -2,7 +2,7 @@ package br.com.ecommerce.pedidos.adapter.persistence;
 
 import br.com.ecommerce.pedidos.adapter.persistence.interfaceJpa.EnderecoJpaRepository;
 import br.com.ecommerce.pedidos.core.model.Endereco;
-import br.com.ecommerce.pedidos.core.ports.EnderecoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

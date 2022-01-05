@@ -1,29 +1,23 @@
 package br.com.ecommerce.pedidos.adapter.web.dto.saida;
 
 import br.com.ecommerce.pedidos.adapter.model.CategoriaEntity;
+import br.com.ecommerce.pedidos.core.model.Categoria;
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 
+@Getter
 public class CategoriaResponse {
 
    private Long id;
-
    private String nome;
 
-   public CategoriaResponse(CategoriaEntity categoriaEntity) {
-      this.id = categoriaEntity.getId();
-      this.nome = categoriaEntity.getNome();
+   public CategoriaResponse(Categoria categoria) {
+      this.id = categoria.getId();
+      this.nome = categoria.getNome();
    }
 
-   public Long getId() {
-      return id;
-   }
-
-   public String getNome() {
-      return nome;
-   }
-
-   public static Page<CategoriaResponse> paraResponse(Page<CategoriaEntity> categorias){
+   /*public static Page<CategoriaResponse> paraResponse(Page<CategoriaEntity> categorias){
       return categorias.map(CategoriaResponse::new);
-   }
+   }*/
 
 }

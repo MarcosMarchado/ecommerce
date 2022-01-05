@@ -1,15 +1,13 @@
 package br.com.ecommerce.pedidos.adapter.configuration;
 
-import br.com.ecommerce.pedidos.PedidosApplication;
 import br.com.ecommerce.pedidos.adapter.persistence.ClienteRepository;
-import br.com.ecommerce.pedidos.adapter.persistence.EnderecoRepository;
-import br.com.ecommerce.pedidos.core.ports.EnderecoRepositoryPort;
-import br.com.ecommerce.pedidos.core.ports.PedidoRepositoryPort;
-import br.com.ecommerce.pedidos.core.ports.ProdutoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.ProdutoRepositoryPort;
+import br.com.ecommerce.pedidos.core.service.FiltraProdutosServiceImpl;
 import br.com.ecommerce.pedidos.core.service.FinalizaPedidoServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 
@@ -26,6 +24,11 @@ public class BeanConfiguration {
           enderecoRepositoryPort,
           produtoRepositoryPort,
           pedidoRepositoryPort);
+   }
+
+   @Bean
+   public FiltraProdutosServiceImpl filtraProdutosService(ProdutoRepositoryPort produtoRepositoryPort){
+      return new FiltraProdutosServiceImpl(produtoRepositoryPort);
    }
 
    @Bean

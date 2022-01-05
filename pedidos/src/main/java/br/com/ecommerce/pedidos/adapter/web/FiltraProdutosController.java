@@ -1,34 +1,25 @@
 package br.com.ecommerce.pedidos.adapter.web;
 
-import br.com.ecommerce.pedidos.adapter.persistence.interfaceJpa.ProdutoJpaRepository;
-import br.com.ecommerce.pedidos.adapter.persistence.specification.ProdutoSpecification;
 import br.com.ecommerce.pedidos.adapter.web.dto.saida.ProdutoResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.ecommerce.pedidos.core.ports.FiltraProdutoServicePort;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1/ecommerce/produtos")
+@RequiredArgsConstructor
 public class FiltraProdutosController {
 
-   private final ProdutoJpaRepository produtoRepository;
-
-   @Autowired
-   public FiltraProdutosController(ProdutoJpaRepository produtoRepository) {
-      this.produtoRepository = produtoRepository;
-   }
+   private final FiltraProdutoServicePort filtraProdutoServicePort;
 
    @GetMapping("/{id}")
    public ResponseEntity<ProdutoResponse> detalhesDoProduto(@PathVariable Long id) {
-      var produto = produtoRepository.findById(id)
-          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
+      var produto = filtraProdutoServicePort.produtoPorId(id);
       return ResponseEntity.ok(new ProdutoResponse(produto));
    }
 
@@ -39,16 +30,11 @@ public class FiltraProdutosController {
                                                                  Pageable pageable) {
 
       if (Objects.isNull(nome) && Objects.isNull(idCategoria) && Objects.isNull(menorPreco)) {
-         var produtos = produtoRepository.findAll(pageable);
+         var produtos = filtraProdutoServicePort.todosProdutos(pageable);
          return ResponseEntity.ok(ProdutoResponse.paraResponse(produtos));
       }
 
-      var produtosFiltrados = produtoRepository.findAll(Specification.where(
-          ProdutoSpecification.precoMenorQue(menorPreco).and(ProdutoSpecification.produtosPorCategoria(idCategoria))
-              .or(ProdutoSpecification.produtosPorCategoria(idCategoria).and(ProdutoSpecification.nome(nome)))
-              .or(ProdutoSpecification.produtosPorCategoria(idCategoria))
-              .or(ProdutoSpecification.nome(nome))
-      ), pageable);
+      var produtosFiltrados = filtraProdutoServicePort.filtraProdutosPorCategoriaEPreco(pageable, menorPreco, idCategoria, nome);
 
       return ResponseEntity.ok(ProdutoResponse.paraResponse(produtosFiltrados));
    }

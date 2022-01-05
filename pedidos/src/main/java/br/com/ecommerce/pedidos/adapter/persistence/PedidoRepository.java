@@ -3,7 +3,7 @@ package br.com.ecommerce.pedidos.adapter.persistence;
 import br.com.ecommerce.pedidos.adapter.model.PedidoEntity;
 import br.com.ecommerce.pedidos.adapter.persistence.interfaceJpa.PedidoJpaRepository;
 import br.com.ecommerce.pedidos.core.model.Pedido;
-import br.com.ecommerce.pedidos.core.ports.PedidoRepositoryPort;
+import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
