@@ -1,11 +1,12 @@
 package br.com.ecommerce.pedidos.core.ports;
 
+import br.com.ecommerce.pedidos.core.model.PageInfo;
 import br.com.ecommerce.pedidos.core.model.Produto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface FiltraProdutoServicePort {
     Produto produtoPorId(Long id);
-    Page<Produto> todosProdutos(Pageable pageable);
-    Page<Produto> filtraProdutosPorCategoriaEPreco(Pageable pageable, Double menorPreco, Long idCategoria, String nome);
+    List<Produto> todosProdutos(PageInfo pageInfo);
+    List<Produto> filtraProdutosPorCategoriaEPreco(PageInfo pageInfo, Double menorPreco, Long idCategoria, String nome);
 }
