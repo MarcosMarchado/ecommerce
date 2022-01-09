@@ -4,7 +4,7 @@ import br.com.ecommerce.pedidos.adapter.web.dto.entrada.ItemPedidoRequest;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.model.ItemPedido;
 import br.com.ecommerce.pedidos.core.model.Pedido;
-import br.com.ecommerce.pedidos.core.ports.*;
+import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
 import br.com.ecommerce.pedidos.core.ports.persistence.ClienteRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
