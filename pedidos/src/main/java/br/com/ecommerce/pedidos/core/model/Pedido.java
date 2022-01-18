@@ -1,9 +1,12 @@
 package br.com.ecommerce.pedidos.core.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,8 +20,15 @@ public class Pedido {
    private Cliente cliente;
    private Endereco enderecoDeEntrega;
    private List<ItemPedido> itens;
+   private BigDecimal valor;
 
    public void associaPedidoAoItensPedido(){
       itens.forEach(item -> item.setPedido(this));
+   }
+
+   public void calculaPrecoTotalDoPedido() {
+      this.valor = itens.stream()
+              .map(ItemPedido::getValorItemPedido)
+              .reduce(BigDecimal.ZERO, BigDecimal::add);
    }
 }

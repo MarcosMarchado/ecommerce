@@ -1,5 +1,6 @@
 CREATE TABLE item_pedido (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     desconto DECIMAL(5, 2) NOT NULL,
-    quantidade SMALLINT NOT NULL
+    quantidade SMALLINT NOT NULL,
+    valor_item_pedido DECIMAL(10, 2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

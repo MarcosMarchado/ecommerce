@@ -3,6 +3,7 @@ package br.com.ecommerce.pedidos.adapter.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,16 @@ public class PedidoEntity {
    private EnderecoEntity enderecoDeEntrega;
    @OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
    private List<ItemPedidoEntity> itens = new ArrayList<>();
+   private BigDecimal valor;
 
    public void associaPedidoAoItensPedido(){
       itens.forEach(item -> item.setPedido(this));
    }
+
+   public void calculaPrecoTotalDoPedido() {
+      this.valor = itens.stream()
+              .map(ItemPedidoEntity::getValorItemPedido)
+              .reduce(BigDecimal.ZERO, BigDecimal::add);
+   }
+
 }

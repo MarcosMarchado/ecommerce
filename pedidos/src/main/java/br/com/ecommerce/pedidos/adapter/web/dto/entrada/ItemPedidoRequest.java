@@ -7,5 +7,4 @@ public class ItemPedidoRequest {
    private Long produtoId;
    private Double desconto;
    private Integer quantidade;
-   private Double preco;
 }

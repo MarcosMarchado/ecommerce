@@ -39,6 +39,7 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
                 .itens(itensPedidos)
                 .build();
 
+        pedido.calculaPrecoTotalDoPedido();
         pedido.associaPedidoAoItensPedido();
         pedidoRepositoryPort.save(pedido);
     }
@@ -46,11 +47,14 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
     private List<ItemPedido> retornaListaDeItensPedidos(List<ItemPedidoRequest> request) {
         return request.stream().map(item -> {
             var produto = produtoRepositoryPort.findById(item.getProdutoId());
-            return ItemPedido.builder()
+            var itemPedido = ItemPedido.builder()
                     .produto(produto)
                     .desconto(item.getDesconto())
                     .quantidade(item.getQuantidade())
                     .build();
+
+            itemPedido.calculaValorDoItemPedido();
+            return itemPedido;
         }).collect(Collectors.toList());
     }
 }
