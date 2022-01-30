@@ -21,6 +21,7 @@ public class Pedido {
    private Endereco enderecoDeEntrega;
    private List<ItemPedido> itens;
    private BigDecimal valor;
+   private Pagamento pagamento;
 
    public void associaPedidoAoItensPedido(){
       itens.forEach(item -> item.setPedido(this));

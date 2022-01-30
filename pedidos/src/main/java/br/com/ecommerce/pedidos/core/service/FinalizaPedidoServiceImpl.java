@@ -1,9 +1,9 @@
 package br.com.ecommerce.pedidos.core.service;
 
+import br.com.ecommerce.pedidos.adapter.web.dto.entrada.FormaDePagamento;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.ItemPedidoRequest;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
-import br.com.ecommerce.pedidos.core.model.ItemPedido;
-import br.com.ecommerce.pedidos.core.model.Pedido;
+import br.com.ecommerce.pedidos.core.model.*;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
 import br.com.ecommerce.pedidos.core.ports.persistence.ClienteRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
@@ -12,6 +12,7 @@ import br.com.ecommerce.pedidos.core.ports.persistence.ProdutoRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,9 +33,20 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
         var endereco = enderecoRepositoryPort.findById(request.getIdEnderecoEntrega());
         var itensPedidos = retornaListaDeItensPedidos(request.getItens());
 
+        String formaDePagamento = request.getPagamento().getFormaDePagamento().name();
+
+        PagamentoComCartao pagamentoComCartao =
+                new PagamentoComCartao(EstadoDoPagamento.PENDENTE,request.getPagamento().getNumeroDeParcelas());
+
+        PagamentoComBoleto pagamentoComBoleto =
+                new PagamentoComBoleto(EstadoDoPagamento.PENDENTE, LocalDate.now().plusDays(5));
+
+        var pagamento = formaDePagamento.equals(FormaDePagamento.BOLETO) ? pagamentoComBoleto : pagamentoComCartao;
+        //var pagamentoSalvo = pagamentoRepositoryPort.save(pagamento);
         Pedido pedido = Pedido.builder()
                 .instante(LocalDateTime.now())
                 .cliente(cliente)
+                .pagamento(pagamento)
                 .enderecoDeEntrega(endereco)
                 .itens(itensPedidos)
                 .build();

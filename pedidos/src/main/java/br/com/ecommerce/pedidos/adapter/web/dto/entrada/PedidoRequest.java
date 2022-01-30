@@ -8,5 +8,6 @@ import java.util.List;
 public class PedidoRequest {
    private Long idCliente;
    private Long idEnderecoEntrega;
+   private PagamentoRequest pagamento;
    private List<ItemPedidoRequest> itens;
 }

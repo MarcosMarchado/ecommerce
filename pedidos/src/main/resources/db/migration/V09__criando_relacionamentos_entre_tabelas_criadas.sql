@@ -1,8 +1,10 @@
 ALTER TABLE pedido ADD COLUMN(
   cliente_id BIGINT(20) NOT NULL,
   endereco_de_entrega_id BIGINT(20) NOT NULL,
+  pagamento_id BIGINT(20) NOT NULL,
   FOREIGN KEY (cliente_id) REFERENCES cliente (id),
-  FOREIGN KEY (endereco_de_entrega_id) REFERENCES endereco (id)
+  FOREIGN KEY (endereco_de_entrega_id) REFERENCES endereco (id),
+  FOREIGN KEY (pagamento_id) REFERENCES pagamento (id)
 );
 
 ALTER TABLE item_pedido ADD COLUMN(
