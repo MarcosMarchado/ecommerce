@@ -1,14 +1,11 @@
 package br.com.ecommerce.pedidos.core.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
 @Builder
+@Setter @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemPedido {

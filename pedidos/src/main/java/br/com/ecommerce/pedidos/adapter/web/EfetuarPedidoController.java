@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/ecommerce/pedidos")
@@ -17,7 +19,7 @@ public class EfetuarPedidoController {
    private final FinalizaPedidoServicePort finalizaPedidoServicePort;
 
    @PostMapping
-   public ResponseEntity<?> efetuarPedido(@RequestBody PedidoRequest request){
+   public ResponseEntity<?> efetuarPedido(@Valid @RequestBody PedidoRequest request){
       finalizaPedidoServicePort.efetuaPedido(request);
       return ResponseEntity.ok(request);
    }

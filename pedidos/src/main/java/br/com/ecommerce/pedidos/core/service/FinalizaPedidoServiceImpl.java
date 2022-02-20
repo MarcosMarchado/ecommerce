@@ -2,6 +2,7 @@ package br.com.ecommerce.pedidos.core.service;
 
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.FormaDePagamento;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.ItemPedidoRequest;
+import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PagamentoRequest;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.model.*;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
@@ -33,16 +34,8 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
         var endereco = enderecoRepositoryPort.findById(request.getIdEnderecoEntrega());
         var itensPedidos = retornaListaDeItensPedidos(request.getItens());
 
-        String formaDePagamento = request.getPagamento().getFormaDePagamento().name();
+        var pagamento = getPagamento(request.getPagamento());
 
-        PagamentoComCartao pagamentoComCartao =
-                new PagamentoComCartao(EstadoDoPagamento.PENDENTE,request.getPagamento().getNumeroDeParcelas());
-
-        PagamentoComBoleto pagamentoComBoleto =
-                new PagamentoComBoleto(EstadoDoPagamento.PENDENTE, LocalDate.now().plusDays(5));
-
-        var pagamento = formaDePagamento.equals(FormaDePagamento.BOLETO) ? pagamentoComBoleto : pagamentoComCartao;
-        //var pagamentoSalvo = pagamentoRepositoryPort.save(pagamento);
         Pedido pedido = Pedido.builder()
                 .instante(LocalDateTime.now())
                 .cliente(cliente)
@@ -68,5 +61,12 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
             itemPedido.calculaValorDoItemPedido();
             return itemPedido;
         }).collect(Collectors.toList());
+    }
+
+    private Pagamento getPagamento(PagamentoRequest pagamento) {
+        if (pagamento.getFormaDePagamento().equals(FormaDePagamento.BOLETO)) {
+            return new PagamentoComBoleto(EstadoDoPagamento.PENDENTE, LocalDate.now().plusDays(5));
+        }
+        return new PagamentoComCartao(EstadoDoPagamento.PENDENTE, pagamento.getNumeroDeParcelas());
     }
 }

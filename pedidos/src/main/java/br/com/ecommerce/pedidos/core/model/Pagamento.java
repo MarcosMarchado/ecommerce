@@ -1,9 +1,10 @@
 package br.com.ecommerce.pedidos.core.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter @Getter
 @NoArgsConstructor
 public class Pagamento {
     private Long id;
