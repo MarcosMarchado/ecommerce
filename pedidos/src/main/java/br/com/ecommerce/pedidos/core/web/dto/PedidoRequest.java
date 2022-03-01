@@ -1,4 +1,4 @@
-package br.com.ecommerce.pedidos.adapter.web.dto.entrada;
+package br.com.ecommerce.pedidos.core.web.dto;
 
 import br.com.ecommerce.pedidos.adapter.anotations.Pedido;
 import lombok.Getter;

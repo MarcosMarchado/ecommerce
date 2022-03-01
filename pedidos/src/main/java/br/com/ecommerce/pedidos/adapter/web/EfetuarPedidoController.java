@@ -3,6 +3,7 @@ package br.com.ecommerce.pedidos.adapter.web;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +18,13 @@ import javax.validation.Valid;
 public class EfetuarPedidoController {
 
    private final FinalizaPedidoServicePort finalizaPedidoServicePort;
+   private final ModelMapper modelMapper;
 
    @PostMapping
    public ResponseEntity<?> efetuarPedido(@Valid @RequestBody PedidoRequest request){
-      finalizaPedidoServicePort.efetuaPedido(request);
-      return ResponseEntity.ok(request);
+      var pedidoRequest = modelMapper.map(request, br.com.ecommerce.pedidos.core.web.dto.PedidoRequest.class);
+      finalizaPedidoServicePort.efetuaPedido(pedidoRequest);
+      return ResponseEntity.ok(pedidoRequest);
    }
 
 }

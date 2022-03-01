@@ -1,15 +1,15 @@
 package br.com.ecommerce.pedidos.core.service;
 
-import br.com.ecommerce.pedidos.adapter.web.dto.entrada.FormaDePagamento;
-import br.com.ecommerce.pedidos.adapter.web.dto.entrada.ItemPedidoRequest;
-import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PagamentoRequest;
-import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.model.*;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
 import br.com.ecommerce.pedidos.core.ports.persistence.ClienteRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.ProdutoRepositoryPort;
+import br.com.ecommerce.pedidos.core.web.dto.FormaDePagamento;
+import br.com.ecommerce.pedidos.core.web.dto.ItemPedidoRequest;
+import br.com.ecommerce.pedidos.core.web.dto.PagamentoRequest;
+import br.com.ecommerce.pedidos.core.web.dto.PedidoRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
