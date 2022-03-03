@@ -1,13 +1,11 @@
 package br.com.ecommerce.pagamento.adapter.model;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity @Table(name = "pagamento")
 @Inheritance(strategy = InheritanceType.JOINED)

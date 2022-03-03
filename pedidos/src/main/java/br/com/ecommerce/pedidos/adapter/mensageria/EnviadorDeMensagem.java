@@ -15,7 +15,7 @@ public class EnviadorDeMensagem implements EnviadorDeMensagemPort {
 
     @Override
     public void enviaMensagem(String topico, Object object){
-        kafkaTemplate.send("NOVO_CARTAO", object).addCallback(
+        kafkaTemplate.send(topico, object).addCallback(
                 success -> log.info("Informações enviadas {}", success.getProducerRecord().value()),
                 failure -> log.info("Deu error")
         );

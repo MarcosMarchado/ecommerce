@@ -49,7 +49,7 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
         pedido.calculaPrecoTotalDoPedido();
         pedido.associaPedidoAoItensPedido();
         pedidoRepositoryPort.save(pedido);
-        enviadorDeMensagemPort.enviaMensagem("ECOMMERCE_PAGAMENTOS", pedido.getPagamento());
+        enviadorDeMensagemPort.enviaMensagem("ECOMMERCE_PAGAMENTO", pagamento);
     }
 
     private List<ItemPedido> retornaListaDeItensPedidos(List<ItemPedidoRequest> request) {
