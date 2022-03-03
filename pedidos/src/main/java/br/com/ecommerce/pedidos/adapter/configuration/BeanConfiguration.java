@@ -1,6 +1,7 @@
 package br.com.ecommerce.pedidos.adapter.configuration;
 
 import br.com.ecommerce.pedidos.adapter.persistence.ClienteRepository;
+import br.com.ecommerce.pedidos.core.ports.mensageria.EnviadorDeMensagemPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.CategoriaRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
@@ -20,12 +21,14 @@ public class BeanConfiguration {
    public FinalizaPedidoServiceImpl finalizaPedidoService(ClienteRepository clienteRepositoryPort,
                                                           EnderecoRepositoryPort enderecoRepositoryPort,
                                                           ProdutoRepositoryPort produtoRepositoryPort,
-                                                          PedidoRepositoryPort pedidoRepositoryPort) {
+                                                          PedidoRepositoryPort pedidoRepositoryPort,
+                                                          EnviadorDeMensagemPort enviadorDeMensagemPort) {
 
       return new FinalizaPedidoServiceImpl(clienteRepositoryPort,
           enderecoRepositoryPort,
           produtoRepositoryPort,
-          pedidoRepositoryPort);
+          pedidoRepositoryPort,
+          enviadorDeMensagemPort);
    }
 
    @Bean

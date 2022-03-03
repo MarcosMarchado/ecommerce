@@ -10,6 +10,7 @@ import lombok.Setter;
 public class Pagamento {
     private Long id;
     private EstadoDoPagamento estadoDoPagamento;
+    private Long idUsuario;
 
     public Pagamento(EstadoDoPagamento estadoDoPagamento) {
         this.estadoDoPagamento = estadoDoPagamento;

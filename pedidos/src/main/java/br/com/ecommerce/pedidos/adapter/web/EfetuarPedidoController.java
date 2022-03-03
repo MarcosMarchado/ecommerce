@@ -2,6 +2,8 @@ package br.com.ecommerce.pedidos.adapter.web;
 
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
+import br.com.ecommerce.pedidos.core.web.dto.FormaDePagamento;
+import br.com.ecommerce.pedidos.core.web.dto.PagamentoRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class EfetuarPedidoController {
    @PostMapping
    public ResponseEntity<?> efetuarPedido(@Valid @RequestBody PedidoRequest request){
       var pedidoRequest = modelMapper.map(request, br.com.ecommerce.pedidos.core.web.dto.PedidoRequest.class);
+      PagamentoRequest pagamento = pedidoRequest.getPagamento();
+      pagamento.setFormaDePagamento(FormaDePagamento.valueOf(request.getPagamento().getFormaDePagamento().name()));
       finalizaPedidoServicePort.efetuaPedido(pedidoRequest);
       return ResponseEntity.ok(pedidoRequest);
    }

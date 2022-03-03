@@ -2,6 +2,7 @@ package br.com.ecommerce.pedidos.core.service;
 
 import br.com.ecommerce.pedidos.core.model.*;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
+import br.com.ecommerce.pedidos.core.ports.mensageria.EnviadorDeMensagemPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.ClienteRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.EnderecoRepositoryPort;
 import br.com.ecommerce.pedidos.core.ports.persistence.PedidoRepositoryPort;
@@ -26,6 +27,7 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
     private final EnderecoRepositoryPort enderecoRepositoryPort;
     private final ProdutoRepositoryPort produtoRepositoryPort;
     private final PedidoRepositoryPort pedidoRepositoryPort;
+    private final EnviadorDeMensagemPort enviadorDeMensagemPort;
 
     @Override
     public void efetuaPedido(PedidoRequest request) {
@@ -47,6 +49,7 @@ public class FinalizaPedidoServiceImpl implements FinalizaPedidoServicePort {
         pedido.calculaPrecoTotalDoPedido();
         pedido.associaPedidoAoItensPedido();
         pedidoRepositoryPort.save(pedido);
+        enviadorDeMensagemPort.enviaMensagem("ECOMMERCE_PAGAMENTOS", pedido.getPagamento());
     }
 
     private List<ItemPedido> retornaListaDeItensPedidos(List<ItemPedidoRequest> request) {
