@@ -23,6 +23,7 @@ public class EfetuarPedidoController {
    @PostMapping
    public ResponseEntity<?> efetuarPedido(@Valid @RequestBody PedidoRequest request){
       var pedidoRequest = modelMapper.map(request, br.com.ecommerce.pedidos.core.web.dto.PedidoRequest.class);
+      pedidoRequest.setaPagamento(request.getPagamento().getFormaDePagamento().name());
       finalizaPedidoServicePort.efetuaPedido(pedidoRequest);
       return ResponseEntity.ok(pedidoRequest);
    }
