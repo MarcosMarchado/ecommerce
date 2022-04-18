@@ -32,10 +32,14 @@ public class EfetuarPedidoController {
       pedidoRequest.setaPagamento(request.getPagamento().getFormaDePagamento().name());
       finalizaPedidoServicePort.efetuaPedido(pedidoRequest);
 
-      /*Grpc send*/
-      ClientGrpcInterceptor.metadataHeaders.put(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER), token);
-      EmailRequest emailRequest = buildEmailGrpcRequest();
-      emailGrpcService.sendEmail(emailRequest);
+        /*Grpc send*/
+        ClientGrpcInterceptor.metadataHeaders.put(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER), token);
+        EmailRequest emailRequest = buildEmailGrpcRequest();
+        try {
+            emailGrpcService.sendEmail(emailRequest);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
       return ResponseEntity.ok(pedidoRequest);
    }

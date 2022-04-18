@@ -1,30 +1,36 @@
 package br.com.ecommerce.security
 
-import io.grpc.Metadata
+import io.grpc.*
 import io.grpc.Metadata.ASCII_STRING_MARSHALLER
-import io.grpc.ServerCall
-import io.grpc.ServerCallHandler
-import io.grpc.ServerInterceptor
-import io.micronaut.http.client.HttpClient
+import io.micronaut.http.HttpResponse
 import jakarta.inject.Singleton
 
 @Singleton
-class RequestInterceptor(val httpClient: HttpClient, val tokenValidationHttpRequest: TokenValidationHttpRequest) : ServerInterceptor {
+class RequestInterceptor(val tokenValidationHttpRequest: TokenValidationHttpRequest) : ServerInterceptor {
 
     //https://www.keycloak.org/docs/latest/securing_apps/#validating-access-tokens
-    override fun <ReqT : Any, RespT : Any> interceptCall
-            (call: ServerCall<ReqT, RespT>, headers: Metadata, next: ServerCallHandler<ReqT, RespT>)
-            : ServerCall.Listener<ReqT> {
+    override fun <ReqT : Any, RespT : Any> interceptCall(call: ServerCall<ReqT, RespT>, headers: Metadata, next: ServerCallHandler<ReqT, RespT>)
+        : ServerCall.Listener<ReqT> {
 
-        var token: String? = headers.get(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER)).toString()
-        var bodyRequest = TokenValidationRequest("tJpSWInZF5410bbdrfXonxsbQtKhxbC3", "api-grpc-email", token.toString());
+        val token: String? = headers.get(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER)).toString()
+        val tokenSemBearer = token.toString().replace("Bearer", "").trim()
+
+        val bodyRequest = TokenValidationRequest("tJpSWInZF5410bbdrfXonxsbQtKhxbC3", "api-grpc-email", tokenSemBearer);
 
         try {
-            val validaToken = tokenValidationHttpRequest.validaToken(bodyRequest)
+            val validaToken: HttpResponse<TokenValidationResponse> = tokenValidationHttpRequest.validaToken(bodyRequest)
+            if(!validaToken.body().active){
+                RetornaErro(call, headers)
+            }
         } catch (e: Exception) {
-            e.printStackTrace()
+            RetornaErro(call, headers)
         }
         return next.startCall(call, headers);
+    }
+
+    private fun <ReqT : Any, RespT : Any> RetornaErro(call: ServerCall<ReqT, RespT>, headers: Metadata) {
+        val status: Status = Status.PERMISSION_DENIED.augmentDescription("Token Inválido")
+        call.close(status, headers);
     }
 
 }
