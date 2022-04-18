@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.ecommerce";
+option java_outer_classname = "Email";
+option objc_class_prefix = "HLW";
+
+package br.com.ecommerce;
+
+service EmailService {
+  rpc sendEmail (EmailRequest) returns (EmailReply) {}
+}
+
+message EmailRequest {
+  string nome = 1;
+  string idPedido = 2;
+  double valorPedido = 3;
+}
+
+message EmailReply {
+  string message = 1;
+  double valorPedido = 3;
+}
