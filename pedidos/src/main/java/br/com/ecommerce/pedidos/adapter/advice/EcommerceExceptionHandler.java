@@ -1,5 +1,6 @@
 package br.com.ecommerce.pedidos.adapter.advice;
 
+import io.grpc.StatusRuntimeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.grpc.Status.PERMISSION_DENIED;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -39,5 +42,14 @@ public class EcommerceExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handleResponseStatusException(ResponseStatusException ex){
         var errorPadrao = new ErrorPadrao(ex.getReason());
         return ResponseEntity.status(ex.getStatus()).body(new ResponseError(List.of(errorPadrao)));
+    }
+
+    @ExceptionHandler({StatusRuntimeException.class})
+    public ResponseEntity<?> handleStatusRuntimeException(StatusRuntimeException ex){
+        if (ex.getStatus().getCode().toStatus().equals(PERMISSION_DENIED)){
+            var errorPadrao = new ErrorPadrao(ex.getLocalizedMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseError(List.of(errorPadrao)));
+        }
+        return ResponseEntity.internalServerError().build();
     }
 }

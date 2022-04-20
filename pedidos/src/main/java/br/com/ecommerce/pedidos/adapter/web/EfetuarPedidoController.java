@@ -6,6 +6,7 @@ import br.com.ecommerce.pedidos.adapter.security.ClientGrpcInterceptor;
 import br.com.ecommerce.pedidos.adapter.web.dto.entrada.PedidoRequest;
 import br.com.ecommerce.pedidos.core.ports.FinalizaPedidoServicePort;
 import io.grpc.Metadata;
+import io.grpc.StatusRuntimeException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +36,7 @@ public class EfetuarPedidoController {
         /*Grpc send*/
         ClientGrpcInterceptor.metadataHeaders.put(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER), token);
         EmailRequest emailRequest = buildEmailGrpcRequest();
-        try {
-            emailGrpcService.sendEmail(emailRequest);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        emailGrpcService.sendEmail(emailRequest);
 
       return ResponseEntity.ok(pedidoRequest);
    }
